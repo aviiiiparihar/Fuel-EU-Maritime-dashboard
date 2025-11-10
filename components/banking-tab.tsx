@@ -24,12 +24,12 @@ export default function BankingTab() {
   const [applied, setApplied] = useState(initialState.applied)
   const [cbAfter, setCbAfter] = useState(initialState.cbAfter)
   const [banked, setBanked] = useState(initialState.banked)
-  const [transactions, setTransactions] = useState(initialState.transactions)
+   const [transactions, setTransactions] = useState(initialState.transactions)
   const [showBankModal, setShowBankModal] = useState(false)
   const [showApplyModal, setShowApplyModal] = useState(false)
   const [error, setError] = useState("")
 
-  const fmt = new Intl.NumberFormat("en-US")
+    const fmt = new Intl.NumberFormat("en-US")
 
   // TODO: Call POST /api/banking/bank with amount to bank surplus
   const handleBankSurplus = (amount: number) => {
@@ -51,7 +51,7 @@ export default function BankingTab() {
   }
 
   // TODO: Call POST /api/banking/apply with amount to apply banked surplus
-  const handleApplyBanked = (amount: number) => {
+    const handleApplyBanked = (amount: number) => {
     if (amount <= 0) {
       setError("Enter a valid amount")
       return
