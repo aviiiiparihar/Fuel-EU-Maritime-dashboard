@@ -62,8 +62,8 @@ export default function ComparisonChart({ routes, baselineId, targetIntensity, o
     }
 
     // Threshold line
-    const thY = yScale(targetIntensity)
-    const th = document.createElementNS("http://www.w3.org/2000/svg", "line")
+     const thY = yScale(targetIntensity)
+     const th = document.createElementNS("http://www.w3.org/2000/svg", "line")
     th.setAttribute("x1", "0")
     th.setAttribute("x2", String(innerW))
     th.setAttribute("y1", String(thY))
