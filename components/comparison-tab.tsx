@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Flag, HandPlatter as HandPointer } from "lucide-react"
 import ComparisonChart from "@/components/comparison-chart"
-import ComparisonTable from "@/components/comparison-table"
+ import ComparisonTable from "@/components/comparison-table"
 
  const TARGET_INTENSITY = 89.3368
 
