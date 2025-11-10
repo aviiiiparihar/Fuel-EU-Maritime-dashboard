@@ -5,7 +5,7 @@ import { Flag, HandPlatter as HandPointer } from "lucide-react"
 import ComparisonChart from "@/components/comparison-chart"
 import ComparisonTable from "@/components/comparison-table"
 
-const TARGET_INTENSITY = 89.3368
+ const TARGET_INTENSITY = 89.3368
 
 // TODO: Replace with GET /api/routes/comparison to fetch comparison data
 const MOCK_ROUTES = [
