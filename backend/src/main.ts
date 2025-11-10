@@ -73,6 +73,11 @@ const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`[v0] Backend server running on http://localhost:${PORT}`)
   console.log(`[v0] Health check: http://localhost:${PORT}/health`)
+  console.log(`[v0] API endpoints:`)
+  console.log(`[v0]   - GET  /api/routes`)
+  console.log(`[v0]   - GET  /api/compliance/:shipId`)
+  console.log(`[v0]   - GET  /api/banking/:shipId`)
+  console.log(`[v0]   - GET  /api/pools`)
 })
 
 export default app
