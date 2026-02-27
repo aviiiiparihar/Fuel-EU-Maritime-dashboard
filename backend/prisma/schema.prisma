@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  // Use the Supabase "Connection pooling" (PgBouncer) URL for runtime queries,
+  // and a direct (non-pooler) URL for migrations.
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Route {
+  id              String  @id @default(cuid())
+  routeId         String  @unique
+  vesselType      String
+  fuelType        String
+  year            Int
+  ghgIntensity    Float
+  fuelConsumption Float
+  distance        Float
+  totalEmissions  Float
+  isBaseline      Boolean @default(false)
+}
+
+model ShipCompliance {
+  id       String @id @default(cuid())
+  shipId   String
+  year     Int
+  cbGco2eq Float
+
+  @@unique([shipId, year])
+}
+
+model BankEntry {
+  id           String @id @default(cuid())
+  shipId       String
+  year         Int
+  amountGco2eq Float
+
+  @@unique([shipId, year])
+}
+
+model Pool {
+  id        String      @id @default(cuid())
+  year      Int
+  createdAt DateTime    @default(now())
+  members   PoolMember[]
+
+  @@index([year])
+}
+
+model PoolMember {
+  id       String @id @default(cuid())
+  poolId   String
+  shipId   String
+  cbBefore Float
+  cbAfter  Float
+
+  pool Pool @relation(fields: [poolId], references: [id], onDelete: Cascade)
+
+  @@index([poolId])
+  @@index([shipId])
+}
+

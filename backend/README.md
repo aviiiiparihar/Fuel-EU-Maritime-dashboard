@@ -1,76 +1,36 @@
-# Fuel EU Maritime Backend
+# Backend
 
-Express.js API server with hexagonal architecture for the Fuel EU Maritime Compliance Dashboard.
+## Prisma + Supabase PostgreSQL
 
-## Architecture
+This project uses Prisma with Supabase Postgres.
 
-**Hexagonal Architecture (Ports & Adapters)**
+### 1) Configure environment variables
 
-\`\`\`
-src/
-├── core/
-│   ├── domain/entities/      # Pure domain entities
-│   └── application/
-│       ├── services/          # Business logic services
-│       └── ports/             # Repository interfaces
-├── adapters/
-│   ├── inbound/http/          # HTTP handlers (REST API)
-│   └── outbound/persistence/  # Repository implementations
-└── infrastructure/            # Server setup, middleware
-\`\`\`
+Copy `.env.example` to `.env` and fill in the two URLs from Supabase:
 
-## Quick Start
+- **`DATABASE_URL`**: Supabase **Connection pooling** (PgBouncer) connection string (Transaction pooler).
+  - Make sure the query includes `pgbouncer=true`.
+  - Recommended: add `connection_limit=1`.
+- **`DIRECT_URL`**: Supabase **Direct connection** connection string (non-pooler).
+  - Prisma uses this for migrations to avoid PgBouncer limitations.
 
-\`\`\`bash
-# Install dependencies
-npm install
+You can find both in Supabase at **Project Settings → Database → Connection string**.
 
-# Run development server
-npm run dev
+### 2) Generate Prisma client
 
-# Run tests
-npm test
+```bash
+npx prisma generate
+```
 
-# Build for production
-npm run build
+### 3) Run migrations against Supabase
 
-# Start production server
-npm start
-\`\`\`
+```bash
+npm run prisma:migrate
+```
 
-## API Endpoints
+### 4) Seed initial data
 
-### Routes
-- `GET /api/routes` - Get all routes
-- `GET /api/routes/:id` - Get route by ID
-- `POST /api/routes` - Create new route
+```bash
+npm run prisma:seed
+```
 
-### Compliance
-- `GET /api/compliance/:shipId` - Get compliance data
-- `POST /api/compliance/calculate` - Calculate compliance
-
-### Banking
-- `GET /api/banking/:shipId` - Get banking history
-- `POST /api/banking/transaction` - Create transaction
-
-### Pools
-- `GET /api/pools` - Get all pools
-- `GET /api/pools/:poolId` - Get pool by ID
-- `POST /api/pools` - Create new pool
-- `POST /api/pools/:poolId/allocate` - Allocate pool
-
-## Environment Variables
-
-See `.env.example` for required environment variables.
-
-## Testing
-
-\`\`\`bash
-# Run all tests
-npm test
-
-# Run with coverage
-npm test -- --coverage
-
-# Watch mode
-npm run test:watch
